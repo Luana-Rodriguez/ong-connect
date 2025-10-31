@@ -1,0 +1,603 @@
+/* DESIGN SYSTEM */
+:root {
+    /* Cores (Mínimo 8) */
+    --cor-primaria-base: #673ab7; /* Roxo principal */
+    --cor-primaria-clara: #ede7f6; /* Roxo muito claro, quase branco */
+    --cor-primaria-escura: #4527a0; /* Roxo escuro */
+    
+    --cor-secundaria-base: #00bcd4; /* Azul ciano para contraste (opcional, pode ser roxo mais claro ou magenta) */
+    --cor-secundaria-clara: #e0f7fa; /* Azul ciano claro */
+    --cor-secundaria-escura: #00838f; /* Azul ciano escuro */
+
+    --cor-neutra-fundo: #f5f5f5; /* Fundo suave */
+    --cor-neutra-texto: #212121; /* Texto escuro quase preto */
+    --cor-neutra-borda: #e0e0e0; /* Borda cinza clara */
+
+    /* Cores de Feedback (ajustadas para roxo) */
+    --cor-sucesso: #4caf50; /* Verde para sucesso */
+    --cor-erro: #f44336; /* Vermelho para erro */
+    --cor-alerta: #ffeb3b; /* Amarelo para alerta */
+
+    /* Tipografia (Mínimo 5) */
+    --fonte-principal: 'Arial', sans-serif;
+    --tamanho-h1: 3.5rem;
+    --tamanho-h2: 2.5rem;
+    --tamanho-h3: 1.75rem;
+    --tamanho-p: 1rem;
+    --tamanho-small: 0.875rem;
+    
+    /* Espaçamento Modular (Base 8px, 6 tamanhos) */
+    --espaco-base: 8px;
+    --espaco-xs: var(--espaco-base);      /* 8px */
+    --espaco-s: calc(var(--espaco-base) * 2);  /* 16px */
+    --espaco-m: calc(var(--espaco-base) * 3);  /* 24px */
+    --espaco-l: calc(var(--espaco-base) * 4);  /* 32px */
+    --espaco-xl: calc(var(--espaco-base) * 6);  /* 48px */
+    --espaco-xxl: calc(var(--espaco-base) * 8); /* 64px */
+    
+    --borda-radius: 4px;
+}
+
+/* BASE & LAYOUT PRINCIPAL (GRID) */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+body {
+    font-family: var(--fonte-principal); color: var(--cor-neutra-texto);
+    background-color: var(--cor-neutra-fundo); line-height: 1.6;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+}
+main {
+    padding: var(--espaco-l) var(--espaco-s); max-width: 1200px; margin: 0 auto; width: 100%;
+}
+h1 { font-size: var(--tamanho-h1); margin-bottom: var(--espaco-m); }
+h2 { font-size: var(--tamanho-h2); margin-bottom: var(--espaco-s); color: var(--cor-primaria-escura); }
+h3 { font-size: var(--tamanho-h3); margin-bottom: var(--espaco-s); }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--cor-secundaria-base); text-decoration: none; }
+
+/* NAVEGAÇÃO INTERATIVA */
+header {
+    background-color: var(--cor-neutra-fundo); /* Usando variável */
+    border-bottom: 3px solid var(--cor-primaria-base); /* Linha roxa */
+}
+nav { display: flex; justify-content: space-between; align-items: center; padding: 0 var(--espaco-s); }
+nav > ul {
+    list-style: none; display: flex; align-items: center;
+}
+nav > ul > li { position: relative; } /* Para dropdown */
+nav a {
+    display: block; padding: var(--espaco-s) var(--espaco-m); color: var(--cor-neutra-texto); font-weight: bold;
+    transition: background-color 0.2s;
+}
+nav a:hover { 
+    background-color: var(--cor-primaria-clara); 
+}
+
+/* Submenu Dropdown */
+.dropdown-menu {
+    display: none; position: absolute; top: 100%; left: 0;
+    min-width: 160px; background-color: white; border: 1px solid var(--cor-neutra-borda);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); list-style: none; z-index: 10;
+}
+.dropdown-menu.active { display: block; }
+.dropdown-menu a { color: var(--cor-neutra-texto); }
+.dropdown-menu a:hover { background-color: var(--cor-neutra-fundo); }
+
+/* Menu Hambúrguer (Mobile) */
+.menu-toggle { display: none; cursor: pointer; padding: var(--espaco-s); font-size: var(--tamanho-h2); }
+.menu-toggle:before { content: '☰'; }
+#nav-menu.active { display: flex !important; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: white; border-top: 1px solid var(--cor-neutra-borda); }
+
+/* CARDS RESPONSIVOS (GRID CUSTOMIZADO 12 COLUNAS) */
+.grid-container {
+    display: grid; gap: var(--espaco-l);
+    grid-template-columns: repeat(12, 1fr);
+    margin-top: var(--espaco-l);
+}
+.projeto-card {
+    grid-column: span 4; /* 4 colunas em desktop = 3 cards por linha */
+    border: 1px solid var(--cor-neutra-borda); padding: var(--espaco-m);
+    background-color: white; border-radius: var(--borda-radius);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); transition: transform 0.3s;
+    display: flex; flex-direction: column; /* Flexbox para alinhar conteúdo interno */
+}
+.card-content { flex-grow: 1; }
+.projeto-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); }
+
+/* BOTÕES (ESTADOS VISUAIS) */
+.btn {
+    padding: var(--espaco-s) var(--espaco-m); border: none; border-radius: var(--borda-radius);
+    font-size: var(--tamanho-p); font-weight: bold; cursor: pointer; transition: all 0.2s;
+    text-align: center; display: inline-block;
+}
+.btn-primary { 
+    background-color: var(--cor-primaria-base); /* CORRIGIDO: Roxo */
+    color: white; 
+}
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--cor-primaria-escura); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-primary:active {
+    background-color: var(--cor-secundaria-escura); /* Usando cor escura secundária */
+    transform: translateY(1px);
+}
+.btn:disabled {
+    background-color: var(--cor-neutra-borda); color: var(--cor-neutra-texto); cursor: not-allowed;
+}
+
+/* BADGES E TAGS */
+.badge {
+    display: inline-block; padding: 4px var(--espaco-xs); border-radius: 12px;
+    font-size: var(--tamanho-small); font-weight: bold; text-transform: uppercase; margin-right: var(--espaco-xs);
+}
+.badge-voluntario { background-color: var(--cor-secundaria-base); color: white; }
+.badge-doacao { background-color: var(--cor-alerta); color: var(--cor-neutra-texto); }
+
+/* FORMULÁRIOS ESTILIZADOS E VALIDAÇÃO VISUAL */
+.form-group { margin-bottom: var(--espaco-m); }
+label { display: block; font-weight: bold; margin-bottom: var(--espaco-xs); }
+input {
+    width: 100%; padding: var(--espaco-s); border: 1px solid var(--cor-neutra-borda);
+    border-radius: var(--borda-radius); font-size: var(--tamanho-p); transition: border-color 0.2s;
+}
+input:focus { 
+    border-color: var(--cor-secundaria-base); /* CORRIGIDO: Ciano para foco */
+    outline: none; 
+}
+input.is-valid { border-color: var(--cor-sucesso); }
+input.is-invalid { border-color: var(--cor-erro); }
+.feedback-invalid { color: var(--cor-erro); font-size: var(--tamanho-small); margin-top: 4px; }
+
+/* COMPONENTES DE FEEDBACK (ALERTS/MODALS/TOASTS) */
+.alert {
+    padding: var(--espaco-s); margin-bottom: var(--espaco-s); border-radius: var(--borda-radius);
+    border: 1px solid transparent; font-weight: bold;
+}
+.alert-success { 
+    background-color: #e8f5e9; /* Verde claro */
+    color: #2e7d32; /* Verde escuro */
+    border-color: var(--cor-sucesso); /* Usando variável */
+}
+.alert-error { background-color: #f8d7da; color: #721c24; border-color: var(--cor-erro); }
+
+/* Modal (Escondido por padrão) */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); display: none; justify-content: center; align-items: center; z-index: 1000;
+}
+.modal.active { display: flex; }
+.modal-content {
+    background-color: white; padding: var(--espaco-l); border-radius: var(--borda-radius);
+    max-width: 500px; width: 90%; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Toast (Fixado no canto superior direito, escondido por padrão) */
+#toast-container {
+    position: fixed; top: var(--espaco-l); right: var(--espaco-l); z-index: 2000;
+}
+.toast {
+    padding: var(--espaco-s); margin-bottom: var(--espaco-s); border-radius: var(--borda-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); display: none; opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+.toast.active { display: block; opacity: 1; transform: translateY(0); }
+
+
+/* BREAKPOINTS RESPONSIVOS (MÍNIMO 5) */
+
+/* 1. Telas Grandes (1200px+) - Padrão */
+
+/* 2. Telas Médias (992px) */
+@media (max-width: 992px) {
+    :root { --tamanho-h1: 3rem; --tamanho-h2: 2rem; }
+    .projeto-card { grid-column: span 6; } /* 2 cards por linha */
+    nav > ul { justify-content: flex-start; }
+}
+
+/* 3. Telas Tablets (768px) */
+@media (max-width: 768px) {
+    nav > ul { display: none; flex-direction: column; position: absolute; width: 100%; background-color: white; }
+    .menu-toggle { display: block; }
+    .projeto-card { grid-column: span 12; } /* 1 card por linha */
+    
+    /* Dropdown no Mobile: Ocupa 100% da largura do menu */
+    .dropdown-menu { position: static; border: none; box-shadow: none; background-color: var(--cor-neutra-fundo); }
+}
+
+/* 4. Telas Pequenas (576px) */
+@media (max-width: 576px) {
+    :root { --tamanho-h1: 2.5rem; --tamanho-h2: 1.75rem; }
+    main { padding: var(--espaco-m) var(--espaco-xs); }
+}
+
+/* 5. Telas Extra Pequenas (400px) */
+@media (max-width: 400px) {
+    :root { --tamanho-h1: 2rem; }
+    .btn { padding: 8px 12px; }
+}
+
+/* FOOTER */
+footer {
+    text-align: center; padding: var(--espaco-s); background-color: var(--cor-neutra-texto);
+    color: var(--cor-neutra-fundo);
+}
+/* Garante que qualquer elemento focável tenha um contorno visível */
+a:focus, button:focus, input:focus, .projeto-card:focus {
+    outline: 3px solid var(--cor-secundaria-base); /* Contorno ciano forte */
+    outline-offset: 2px;
+}
+/* --- ACESSIBILIDADE WCAG 2.1 --- */
+
+/* 1. MODO ESCURO (Preferência do Sistema) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Inverte cores neutras para fundo escuro */
+        --cor-neutra-fundo: #121212;
+        --cor-neutra-texto: #e0e0e0;
+        --cor-neutra-borda: #444444;
+    }
+    header, .modal-content, .projeto-card, .dropdown-menu {
+        background-color: var(--cor-neutra-fundo);
+        color: var(--cor-neutra-texto);
+    }
+    /* Reajuste para texto nos alertas escuros */
+    .alert-success { background-color: #0c4d1d; color: #a3e9b1; border-color: #1e7e34; }
+}
+
+/* 2. MODO ALTO CONTRASTE (Ativado por classe no <body>) */
+body.modo-alto-contraste {
+    --cor-neutra-fundo: black !important;
+    --cor-neutra-texto: white !important;
+    --cor-primaria-base: yellow !important;
+    --cor-secundaria-base: cyan !important;
+    
+    /* Remove sombras e degradês */
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+/* NOVO ESTILO PARA A IMAGEM DE DESTAQUE */
+.imagem-destaque {
+    text-align: center; /* Centraliza o conteúdo (a imagem) */
+    margin: var(--espaco-l) auto; /* Espaçamento superior/inferior */
+    max-width: 800px; /* Limita o tamanho máximo da imagem */
+}
+.imagem-destaque img {
+    max-height: 400px; /* Limita a altura da imagem para não esticar demais */
+    width: auto; /* Permite que a largura se ajuste automaticamente */
+    border-radius: var(--borda-radius);
+}
+/* ESTILO PARA A SEÇÃO DE CONTATO FINAL */
+.contato-final {
+    text-align: center;
+    padding: var(--espaco-xl) var(--espaco-l);
+    background-color: var(--cor-primaria-clara); /* Fundo claro para destaque */
+    border-radius: var(--borda-radius);
+    margin: var(--espaco-xxl) auto; /* Grande margem para separar do resto */
+}
+.contato-final h2 {
+    color: var(--cor-primaria-escura);
+    margin-bottom: var(--espaco-m);
+}
+.contato-final .contato-info {
+    padding: var(--espaco-m);
+    background-color: white;
+    border-radius: var(--borda-radius);
+    text-align: center;
+}
+/* --- NOVAS SEÇÕES PARA HOME (index.html) --- */
+
+/* Hero Section (Banner Principal) */
+.hero-section {
+    background: var(--cor-primaria-base); /* Roxo principal */
+    color: white;
+    padding: var(--espaco-xxl) var(--espaco-m);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--espaco-xxl);
+    background-image: url('../imagens/undraw_blooming_g9e9.svg'); /* Sua imagem como background */
+    background-size: cover; /* Cobre a área */
+    background-position: center bottom; /* Posição da imagem */
+    min-height: 450px; /* Altura mínima para o banner */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--borda-radius);
+}
+.hero-section::before { /* Overlay escuro para melhorar contraste do texto */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Escurece a imagem */
+    z-index: 1;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+.hero-content h2 {
+    color: white;
+    font-size: var(--tamanho-h1);
+    margin-bottom: var(--espaco-m);
+}
+.hero-content p {
+    font-size: var(--tamanho-h3);
+    margin-bottom: var(--espaco-xl);
+    line-height: 1.4;
+}
+.btn-large {
+    padding: var(--espaco-s) var(--espaco-xl);
+    font-size: var(--tamanho-h3);
+}
+
+/* Features Section (Funcionalidades com Cards) */
+.features-section {
+    text-align: center;
+    margin-bottom: var(--espaco-xxl);
+}
+.features-section h2 {
+    color: var(--cor-primaria-escura);
+    margin-bottom: var(--espaco-xl);
+}
+.feature-card {
+    grid-column: span 3; /* 4 cards por linha em desktop */
+    background-color: var(--cor-primaria-clara); /* CORRIGIDO: Usando roxo claro */
+    padding: var(--espaco-l);
+    border-radius: var(--borda-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+.feature-icon {
+    width: 80px; /* Tamanho dos ícones */
+    height: 80px;
+    margin-bottom: var(--espaco-m);
+    color: var(--cor-primaria-base); /* Ícones SVG podem herdar cor ou ter cor definida */
+}
+.feature-card h3 {
+    color: var(--cor-primaria-escura); /* CORRIGIDO: Usando roxo escuro para contraste */
+    margin-bottom: var(--espaco-s);
+}
+
+/* CTA Section (Chamada para Ação com Imagem Lateral) */
+.cta-section {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar em telas menores */
+    align-items: center;
+    gap: var(--espaco-xl);
+    background-color: var(--cor-secundaria-clara); /* Fundo suave para destaque */
+    padding: var(--espaco-xxl) var(--espaco-m);
+    border-radius: var(--borda-radius);
+    margin-bottom: var(--espaco-xxl);
+}
+.cta-image {
+    flex: 1; /* Ocupa espaço flexível */
+    min-width: 300px; /* Tamanho mínimo para a imagem */
+    text-align: center;
+}
+.cta-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--borda-radius);
+}
+.cta-content {
+    flex: 1.5; /* Ocupa mais espaço que a imagem */
+    min-width: 300px;
+}
+.cta-content h2 {
+    color: var(--cor-primaria-escura);
+    font-size: var(--tamanho-h1);
+    margin-bottom: var(--espaco-m);
+}
+.cta-content p {
+    font-size: var(--tamanho-h3);
+    margin-bottom: var(--espaco-l);
+}
+
+/* Responsividade específica para as novas seções */
+@media (max-width: 992px) {
+    .feature-card {
+        grid-column: span 6; /* 2 cards por linha em tablets */
+    }
+    .cta-section {
+        flex-direction: column; /* Coloca imagem e conteúdo em coluna */
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    .hero-content h2 { font-size: 2.8rem; }
+    .hero-content p { font-size: 1.2rem; }
+    .btn-large { font-size: 1.3rem; padding: var(--espaco-s) var(--espaco-m); }
+    .feature-card {
+        grid-column: span 12; /* 1 card por linha em mobile */
+    }
+}
+/* --- ESTILOS GERAIS/RESET --- */
+body {
+    font-family: var(--fonte-principal); /* CORRIGIDO: Usando variável */
+    margin: 0;
+    padding: 0;
+    background-color: var(--cor-neutra-fundo); /* CORRIGIDO: Usando variável */
+    color: var(--cor-neutra-texto); /* CORRIGIDO: Usando variável */
+}
+
+/* Container principal para centralizar o conteúdo do formulário */
+.container {
+    max-width: 800px; /* Largura máxima do conteúdo */
+    margin: 40px auto; /* Centraliza horizontalmente */
+    padding: 20px;
+    background-color: #fff; /* Fundo do formulário branco (ok, pode ser mais claro que o fundo neutro) */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- HEADER E NAVEGAÇÃO (Apenas o necessário para a imagem) --- */
+
+header {
+    /* CORRIGIDO: Usando as variáveis para a cor principal */
+    background-color: var(--cor-primaria-base); 
+    color: white;
+    padding: var(--espaco-m); /* Usando variável */
+    text-align: center;
+}
+
+/* Estilização da Imagem no Header */
+.header-image {
+    /* Controla o tamanho máximo da imagem */
+    max-width: 400px; 
+    height: auto;
+    margin: var(--espaco-m) 0; /* Usando variável */
+    display: block; /* Garante que a imagem se comporte como um bloco */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- ESTILIZAÇÃO DO FORMULÁRIO --- */
+
+h2 {
+    text-align: center;
+    /* CORRIGIDO: Usando a cor escura primária para o título */
+    color: var(--cor-primaria-escura); 
+    margin-bottom: 30px;
+}
+
+#cadastroForm ul {
+    list-style: none;
+    padding: 0;
+    display: flex; /* Usa flexbox para organizar os campos */
+    flex-wrap: wrap; /* Permite que os campos quebrem a linha */
+    gap: var(--espaco-s); /* Usando variável para o espaçamento */
+}
+
+#cadastroForm li {
+    /* Define que cada item (campo) ocupe cerca de 48% da largura, 
+    permitindo 2 colunas em telas maiores */
+    flex-basis: calc(50% - 10px); 
+    /* No modo responsivo (telas pequenas), 100% */
+    width: 100%; 
+}
+
+/* Altera para 100% de largura em telas muito pequenas */
+@media (max-width: 600px) {
+    #cadastroForm li {
+        flex-basis: 100%;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    margin-bottom: var(--espaco-xs); /* Usando variável */
+    font-weight: bold;
+    color: var(--cor-neutra-texto); /* CORRIGIDO: Usando cor neutra para texto */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+input[type="password"] {
+    width: 100%; /* Ocupa a largura total do li */
+    padding: var(--espaco-s); /* Usando variável */
+    margin-bottom: 10px;
+    border: 1px solid var(--cor-neutra-borda); /* Usando variável */
+    border-radius: var(--borda-radius); /* Usando variável */
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
+    font-size: var(--tamanho-p); /* Usando variável */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Efeito de foco (melhoria visual) */
+input:focus {
+    /* CORRIGIDO: Usando a cor secundária (Ciano) para o foco */
+    border-color: var(--cor-secundaria-base); 
+    box-shadow: 0 0 5px var(--cor-secundaria-base); /* Sombra consistente */
+    outline: none;
+}
+
+/* --- ESTILIZAÇÃO DOS BOTÕES --- */
+/* (Já estavam melhor definidos na seção global, mas corrigimos aqui para o contexto) */
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--borda-radius); /* Usando variável */
+    cursor: pointer;
+    font-size: var(--tamanho-p); /* Usando variável */
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-primary {
+    /* CORRIGIDO: Usando a cor primária (Roxo) */
+    background-color: var(--cor-primaria-base); 
+    color: white;
+    margin-right: 15px; /* Espaço entre os botões (se houver) */
+}
+
+.btn-primary:hover {
+    /* CORRIGIDO: Usando a cor escura primária (Roxo escuro) */
+    background-color: var(--cor-primaria-escura); 
+    transform: translateY(-1px);
+}
+
+.btn:last-child {
+    /* CORRIGIDO: Usando a cor de Erro (Vermelho) para Cancelar */
+    background-color: var(--cor-erro); 
+    color: white;
+}
+
+.btn:last-child:hover {
+    background-color: #e53935; /* Mantido um tom mais escuro de vermelho */
+    transform: translateY(-1px);
+}
+
+/* Ajuste específico para o botão no final da lista */
+#cadastroForm li:last-child {
+    flex-basis: 100%; /* Garante que o botão ocupe a largura toda */
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* --- ESTILOS DO MODAL (Opcional, mas para harmonizar) --- */
+
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 10; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Fundo preto semi-transparente */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centraliza verticalmente */
+    padding: var(--espaco-l); /* Usando variável */
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+}
