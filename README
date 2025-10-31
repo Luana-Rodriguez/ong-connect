@@ -1,0 +1,78 @@
+🫂 ONG CONNECT
+
+🌐 Visão Geral do Projeto
+
+O ONG CONNECT é uma plataforma web desenvolvida para auxiliar Organizações Não Governamentais (ONGs) a gerenciar suas atividades, projetos e ações sociais de forma eficiente. O foco inicial deste projeto é a criação de um formulário de cadastro moderno, acessível e alinhado a um Design System robusto.
+
+✨ Tecnologias Utilizadas
+
+Categoria	Tecnologia
+Estrutura	HTML5 (Semântico)
+Estilização	CSS3 (Com Variáveis, Flexbox e Media Queries)
+Padrões	Design System (Cores, Tipografia e Espaçamento)
+Otimização	Minificação e Compressão (a ser configurada via Bundler)
+Acessibilidade	Alto Contraste, Foco Visível (WCAG 2.1)
+
+🎨 Design System
+
+O projeto utiliza um Design System baseado em variáveis CSS (:root) para garantir a consistência visual em todos os componentes.
+Variável	Cor	Uso Principal
+--cor-primaria-base	#673ab7 (Roxo)	Cor principal da marca (Botões, Destaques).
+--cor-secundaria-base	#00bcd4 (Ciano)	Cor de Contraste (Links, Foco de Input).
+--cor-sucesso	#4caf50 (Verde)	Feedback de Sucesso.
+--cor-erro	#f44336 (Vermelho)	Feedback de Erro ou Botão "Cancelar".
+
+⚙️ Configuração e Execução Local
+
+Siga os passos abaixo para configurar e visualizar o projeto em sua máquina local.
+
+1. Clonar o Repositório
+
+Bash
+
+# Assumindo que você está usando Git
+git clone [URL_DO_SEU_REPOSITORIO]
+cd ong-connect
+
+2. Estrutura de Arquivos
+
+Certifique-se de que a estrutura básica de arquivos é a seguinte:
+
+ong-connect/
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+├── imagens/
+│   └── undraw_fingerprint-login_19qv.svg
+├── index.html
+└── cadastro.html
+
+3. Visualização no Navegador
+
+Como este projeto utiliza apenas HTML e CSS/JS puros, você pode simplesmente:
+
+    Abrir o arquivo cadastro.html (ou index.html) diretamente no seu navegador.
+
+
+📝 Documentação do Formulário (cadastro.html)
+
+O formulário de cadastro segue as seguintes diretrizes:
+
+    Responsividade: Usa Flexbox para apresentar 2 colunas em telas grandes e 1 coluna em dispositivos móveis.
+
+    Validação HTML5: Campos de CPF e Telefone utilizam o atributo pattern com Regex para validação inicial de formato.
+
+    Interação: Implementa um Modal de confirmação antes do envio final dos dados.
+
+📦 Otimização para Produção
+
+Para implantar o projeto de forma otimizada (com arquivos minificados e imagens comprimidas), recomenda-se o uso de um bundler.
+
+Arquivos de Produção Esperados:
+
+    css/style.min.css
+
+    js/script.min.js
+
+    Imagens comprimidas.
